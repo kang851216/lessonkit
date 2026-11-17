@@ -25,7 +25,7 @@
     const pct = totalMs ? remaining / totalMs : 0;
     face.style.color = remaining <= 10000 && remaining > 0 ? '#ef4444' : '';
     face.style.opacity = running ? '1' : '.92';
-    document.title = running ? fmt(remaining) + ' · Timer Kelas' : 'Timer Kelas Online — Penghitung Waktu Kegiatan Belajar | KelasTools';
+    document.title = running ? fmt(remaining) + ' · Class Timer' : 'Class Timer — Online Countdown for Lessons | LessonKit';
     if (pct < 0) return;
   }
 
@@ -47,7 +47,7 @@
     if (remaining <= 0) remaining = totalMs;
     endAt = performance.now() + remaining;
     running = true;
-    startBtn.textContent = 'Jeda';
+    startBtn.textContent = 'Pause';
     startBtn.classList.remove('primary');
     requestWakeLock();
     raf = requestAnimationFrame(tick);
@@ -56,7 +56,7 @@
   function pause() {
     running = false;
     cancelAnimationFrame(raf);
-    startBtn.textContent = 'Lanjut';
+    startBtn.textContent = 'Resume';
     startBtn.classList.add('primary');
     releaseWakeLock();
     paint();
@@ -65,7 +65,7 @@
   function stop() {
     running = false;
     cancelAnimationFrame(raf);
-    startBtn.textContent = 'Mulai';
+    startBtn.textContent = 'Start';
     startBtn.classList.add('primary');
     releaseWakeLock();
   }
@@ -83,7 +83,7 @@
     if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
     face.textContent = '00:00';
     face.style.color = '#ef4444';
-    App.toast('Waktu habis');
+    App.toast("Time's up");
   }
 
   function setMinutes(m) {

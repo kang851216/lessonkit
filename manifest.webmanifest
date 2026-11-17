@@ -1,13 +1,13 @@
 {
-  "name": "KelasTools — Alat untuk Guru",
-  "short_name": "KelasTools",
-  "description": "Roda putar nama, pembagi kelompok acak, dan timer kelas. Gratis, tanpa daftar, bisa offline.",
+  "name": "LessonKit — Classroom Tools for Teachers",
+  "short_name": "LessonKit",
+  "description": "Name picker wheel, random group maker and class timer. Free, no sign-up, works offline.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "background_color": "#f6f7f9",
   "theme_color": "#2563eb",
-  "lang": "id",
+  "lang": "en",
   "dir": "ltr",
   "icons": [
     {

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Class Timer — Online Countdown for Lessons</title>
+<meta name="description" content="Free class timer with a big display that reads from the back row: presets from 1 to 30 minutes, a reminder sound, and the screen kept awake.">
+<link rel="canonical" href="https://kang851216.github.io/lessonkit/class-timer.html">
+<meta name="theme-color" content="#2563eb">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%8F%B1%3C/text%3E%3C/svg%3E">
+<script>if(location.search.indexOf("embed=1")>-1){document.documentElement.classList.add("embed");var _r=function(){try{parent.postMessage({t:"kelas-embed",h:document.documentElement.scrollHeight},"*")}catch(e){}};addEventListener("load",_r);setInterval(_r,600);}</script>
+<link rel="stylesheet" href="css/style.css">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LessonKit">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Class Timer — Online Countdown for Lessons">
+<meta property="og:description" content="A simple class timer with a big display and a reminder sound. Set 1, 3, 5 or 10 minutes for quizzes, discussion and group work.">
+<meta property="og:url" content="https://kang851216.github.io/lessonkit/class-timer.html">
+<meta property="og:image" content="https://kang851216.github.io/lessonkit/img/og-class-timer.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Class Timer — Online Countdown for Lessons">
+<meta name="twitter:description" content="A simple class timer with a big display and a reminder sound. Set 1, 3, 5 or 10 minutes for quizzes, discussion and group work.">
+<meta name="twitter:image" content="https://kang851216.github.io/lessonkit/img/og-class-timer.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://kang851216.github.io/lessonkit/"},{"@type":"ListItem","position":2,"name":"Class Timer","item":"https://kang851216.github.io/lessonkit/class-timer.html"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"en","mainEntity":[{"@type":"Question","name":"How do I use this class timer?","acceptedAnswer":{"@type":"Answer","text":"Pick a preset (1, 3, 5, 10 or 15 minutes) or press +1 min, then press Start. The number counts down in a large display that is visible from the back of the room."}},{"@type":"Question","name":"Does it make a sound when time is up?","acceptedAnswer":{"@type":"Answer","text":"Yes. The timer beeps three times and the digits turn red for the last 10 seconds."}},{"@type":"Question","name":"Does the screen stay awake while the timer runs?","acceptedAnswer":{"@type":"Answer","text":"Yes, in browsers that support it the screen is kept awake, so the projector does not drop to a blank screen."}},{"@type":"Question","name":"Can the timer be used without internet?","acceptedAnswer":{"@type":"Answer","text":"Yes. It runs entirely in the browser and keeps working when the connection drops."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Class Timer","url":"https://kang851216.github.io/lessonkit/class-timer.html","applicationCategory":"EducationalApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"inLanguage":"en","description":"A class timer with a large display, presets from 1 to 30 minutes, and a reminder sound for quizzes, discussion and group work."}</script>
+</head>
+<body>
+<header class="top"><div class="inner">
+  <a class="brand" href="index.html">Lesson<span>Kit</span></a>
+  <nav><a href="name-picker-wheel.html">Wheel</a><a href="group-maker.html">Groups</a><a href="class-timer.html">Timer</a></nav>
+</div></header>
+
+<main class="wrap">
+  <h1>Class Timer</h1>
+  <p class="lead">A countdown with digits big enough that every student can see how much time is left.</p>
+
+  <div class="card">
+    <div class="pillbar">
+      <span class="chip" data-min="1">1 min</span>
+      <span class="chip" data-min="3">3 min</span>
+      <span class="chip" data-min="5">5 min</span>
+      <span class="chip" data-min="10">10 min</span>
+      <span class="chip" data-min="15">15 min</span>
+    </div>
+
+    <div class="timer-face" id="face" role="timer" aria-live="off">05:00</div>
+
+    <div class="row">
+      <button class="btn primary" id="start">Start</button>
+      <button class="btn" id="plus">+1 min</button>
+      <button class="btn" id="reset">Reset</button>
+    </div>
+
+    <label for="custom">Set your own (minutes)</label>
+    <input type="number" id="custom" min="1" max="180" value="5" inputmode="numeric">
+    <p class="hint">The reminder beeps three times when time is up. The screen is kept awake while the timer runs (if the browser allows it).</p>
+  </div>
+
+  <section class="prose">
+    <h2>Ways to use a timer in class</h2>
+    <ul>
+      <li><b>5 minutes</b> — group discussion before presentations.</li>
+      <li><b>10 minutes</b> — a short quiz or a set of practice questions.</li>
+      <li><b>1 minute</b> — a quick-fire round or a warm-up.</li>
+      <li><b>15 minutes</b> — independent work, writing or silent reading.</li>
+    <li><a href="30-minute-exam-timer.html">Guide: a 30-minute exam timer</a></li></ul>
+    <h2>Why a visible timer helps</h2>
+    <p>A deadline everyone can see keeps students focused and makes it easier for the teacher to hold the pace of the lesson. Large digits also cut down the "how many minutes left?" questions.</p>
+    <p>This timer runs entirely in the browser. Nothing is uploaded, no account is needed, and it keeps working offline once the page has been opened.</p>
+  </section>
+
+  <footer class="site"><p>LessonKit — small tools for teachers. <a href="index.html">All tools</a></p></footer>
+
+<section class="faq"><h2>Frequently asked questions</h2><details><summary>How do I use this class timer?</summary><p>Pick a preset (1, 3, 5, 10 or 15 minutes) or press +1 min, then press Start. The number counts down in a large display that is visible from the back of the room.</p></details><details><summary>Does it make a sound when time is up?</summary><p>Yes. The timer beeps three times and the digits turn red for the last 10 seconds.</p></details><details><summary>Does the screen stay awake while the timer runs?</summary><p>Yes, in browsers that support it the screen is kept awake, so the projector does not drop to a blank screen.</p></details><details><summary>Can the timer be used without internet?</summary><p>Yes. It runs entirely in the browser and keeps working when the connection drops.</p></details></section>
+<section class="related"><h2>Other tools</h2><ul><li><a href="name-picker-wheel.html">Name Picker Wheel</a></li><li><a href="group-maker.html">Random Group Maker</a></li><li><a href="index.html">All LessonKit tools</a></li><li><a href="30-minute-exam-timer.html">Guide: a 30-minute exam timer</a></li></ul></section>
+</main>
+
+<nav class="bottomnav">
+  <a href="index.html"><b>🏠</b>Home</a>
+  <a href="name-picker-wheel.html"><b>🎡</b>Wheel</a>
+  <a href="group-maker.html"><b>👥</b>Groups</a>
+  <a href="class-timer.html" class="active"><b>⏱️</b>Timer</a>
+</nav>
+
+<script src="js/app.js"></script>
+<script src="js/timer.js"></script>
+<script src="js/stats.js" defer></script>
+</body>
+</html>

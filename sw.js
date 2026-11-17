@@ -1,33 +1,32 @@
-/* sw.js — offline cache for KelasTools */
-const CACHE = 'kelas-v35';
+/* sw.js — offline cache for LessonKit */
+const CACHE = 'lessonkit-v1';
 const ASSETS = [
   './',
   './index.html',
-  './roulette.html',
-  './kelompok.html',
-  './timer.html',
+  './name-picker-wheel.html',
+  './group-maker.html',
+  './class-timer.html',
   './404.html',
   './css/style.css',
   './js/app.js',
-  './js/i18n.js',
   './js/stats.js',
   './js/roulette.js',
   './js/kelompok.js',
   './js/timer.js',
   './manifest.webmanifest',
-  './cara-mengundi-siswa.html',
-  './timer-ujian-30-menit.html',
-  './pembagi-kelompok-4-orang.html',
-  './roda-nama-offline.html',
-  './ide-ice-breaking-kelas.html',
-  './timer-hitung-mundur-online.html',
-  './ice-breaking-smp.html',
-  './ice-breaking-kelas-4-sd.html',
-  './pembagi-kelompok-dan-materi.html',
-  './roda-nama-kelompok.html',
-  './roda-nama-arisan.html',
-  './panduan/cara-membagi-kelompok-belajar.html',
-  './panduan/ide-memilih-siswa-acak.html'
+  './how-to-pick-a-student-at-random.html',
+  './30-minute-exam-timer.html',
+  './groups-of-four.html',
+  './offline-name-picker.html',
+  './icebreaker-ideas-for-class.html',
+  './online-countdown-timer.html',
+  './icebreakers-for-middle-school.html',
+  './icebreakers-for-4th-grade.html',
+  './group-maker-with-topics.html',
+  './name-wheel-for-groups.html',
+  './raffle-name-picker.html',
+  './guides/how-to-group-students.html',
+  './guides/random-student-picker-ideas.html'
 ];
 
 self.addEventListener('install', (e) => {

@@ -81,3 +81,8 @@ qafull.js
 qaimg.js
 qashots.js
 live*.js
+out/
+cap_*.js
+probe_frames.js
+*.log
+.gsc_profile/

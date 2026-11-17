@@ -11,8 +11,8 @@
 
   const ROLE_SETS = {
     none: [],
-    basic: ['Ketua', 'Notulis', 'Juru Bicara'],
-    full: ['Ketua', 'Notulis', 'Juru Bicara', 'Anggota']
+    basic: ['Chair', 'Note-taker', 'Spokesperson'],
+    full: ['Chair', 'Note-taker', 'Spokesperson', 'Member']
   };
 
   let names = [];
@@ -30,7 +30,7 @@
   });
 
   function updateCount() {
-    countEl.textContent = '(' + names.length + ' nama)';
+    countEl.textContent = '(' + names.length + (names.length === 1 ? ' name)' : ' names)');
   }
 
   function distribute(list, k) {
@@ -50,11 +50,11 @@
   function build() {
     const k = parseInt(groupsEl.value, 10) || 2;
     if (names.length < k) {
-      App.toast('Nama lebih sedikit dari jumlah kelompok');
+      App.toast('Fewer names than groups');
       return;
     }
     if (names.length < 2) {
-      App.toast('Masukkan minimal 2 nama');
+      App.toast('Add at least 2 names');
       return;
     }
     const roleKey = rolesEl.value;
@@ -66,16 +66,16 @@
     result = groups.map((members, gi) => {
       let roleOrder = roles.slice();
       if (roleKey === 'full') {
-        // 'Anggota' fills the rest; shuffle the three named roles
+        // 'Member' fills the rest; shuffle the three named roles
         roleOrder = App.shuffle(ROLE_SETS.basic);
       } else if (roleOrder.length) {
         roleOrder = App.shuffle(roleOrder);
       }
       return {
-        title: 'Kelompok ' + (gi + 1),
+        title: 'Group ' + (gi + 1),
         members: members.map((name, mi) => ({
           name,
-          role: roleOrder.length ? (roleOrder[mi] || (roleKey === 'full' ? 'Anggota' : '')) : ''
+          role: roleOrder.length ? (roleOrder[mi] || (roleKey === 'full' ? 'Member' : '')) : ''
         }))
       };
     });
@@ -93,7 +93,7 @@
       const card = document.createElement('div');
       card.className = 'gcard';
       const h = document.createElement('h4');
-      h.textContent = g.title + ' · ' + g.members.length + ' orang';
+      h.textContent = g.title + ' · ' + g.members.length + ' members';
       card.appendChild(h);
       const ol = document.createElement('ol');
       for (const m of g.members) {
@@ -156,10 +156,10 @@
     g2.font = '800 52px system-ui, -apple-system, Segoe UI, Roboto, sans-serif';
     g2.textAlign = 'left';
     g2.textBaseline = 'middle';
-    g2.fillText('Pembagian Kelompok', pad, 68);
+    g2.fillText('Groups', pad, 68);
     g2.font = '600 28px system-ui, sans-serif';
     g2.fillStyle = 'rgba(255,255,255,.85)';
-    g2.fillText(names.length + ' siswa · ' + result.length + ' kelompok · ' + App.today(), pad, 116);
+    g2.fillText(names.length + ' students · ' + result.length + ' groups · ' + App.today(), pad, 116);
 
     let y = 200;
     for (let r = 0; r < rows.length; r++) {
@@ -183,7 +183,7 @@
     g2.textBaseline = 'middle';
     g2.fillStyle = '#6b7280';
     g2.font = '600 24px system-ui, sans-serif';
-    g2.fillText('Bagi kelompok lagi kapan saja', tx, by + 48);
+    g2.fillText('Make new groups any time', tx, by + 48);
     const addr = 'kang851216.github.io/kelas-tools';
     let us = 32;
     do { g2.font = '800 ' + us + 'px system-ui, sans-serif'; us -= 1; }
@@ -243,7 +243,7 @@
   goBtn.addEventListener('click', build);
   againBtn.addEventListener('click', build);
 
-  document.getElementById('copy').addEventListener('click', () => App.copy(asText(), 'Teks kelompok disalin'));
+  document.getElementById('copy').addEventListener('click', () => App.copy(asText(), 'Group list copied'));
   document.getElementById('csv').addEventListener('click', () => {
     App.download(new Blob([asCsv()], { type: 'text/csv;charset=utf-8' }), 'kelompok-' + App.today() + '.csv');
   });
@@ -256,6 +256,6 @@
     window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank', 'noopener');
   });
   document.getElementById('png').addEventListener('click', () => {
-    App.shareOrDownload(makeCanvas(), 'kelompok-' + App.today() + '.png', 'Pembagian kelompok');
+    App.shareOrDownload(makeCanvas(), 'groups-' + App.today() + '.png', 'Group list');
   });
 })();

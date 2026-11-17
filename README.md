@@ -1,37 +1,52 @@
-# KelasTools — alat gratis untuk guru Indonesia
+# LessonKit — free classroom tools for teachers
 
-Perangkat kelas yang jalan langsung di browser: **tanpa daftar, tanpa instal, dan tetap
-berfungsi saat internet mati**. Dibuat untuk guru SD, SMP, dan SMA yang butuh memilih nama
-secara acak, membagi kelompok, atau menjalankan timer ujian di depan kelas.
+Small browser tools that work **without an account, without an install, and
+without internet** once the page has been opened. Built for K-12 teachers who
+need to call on a student at random, split a class into groups, or run a visible
+timer at the front of the room.
 
-Situs: <https://kang851216.github.io/kelas-tools/>
+Site: <https://kang851216.github.io/lessonkit/>
 
-## Alat
+## Tools
 
-| Alat | Kegunaan | Buka |
+| Tool | What it does | Open |
 |---|---|---|
-| Roda putar nama | Memilih siswa secara acak dengan roda 3D | [roulette.html](https://kang851216.github.io/kelas-tools/roulette.html) |
-| Pembagi kelompok | Membagi kelas menjadi 2–10 kelompok, peran otomatis | [kelompok.html](https://kang851216.github.io/kelas-tools/kelompok.html) |
-| Timer kelas | Hitung mundur untuk ujian, kuis, atau kerja kelompok | [timer.html](https://kang851216.github.io/kelas-tools/timer.html) |
+| Name picker wheel | Picks a student at random with a 3D wheel | [name-picker-wheel.html](https://kang851216.github.io/lessonkit/name-picker-wheel.html) |
+| Group maker | Splits a class into 2–10 groups, assigns roles | [group-maker.html](https://kang851216.github.io/lessonkit/group-maker.html) |
+| Class timer | Countdown for exams, quizzes and group work | [class-timer.html](https://kang851216.github.io/lessonkit/class-timer.html) |
 
-## Panduan
+## Guides
 
-- [Cara mengundi siswa di kelas](https://kang851216.github.io/kelas-tools/cara-mengundi-siswa.html)
-- [Cara membagi kelompok belajar](https://kang851216.github.io/kelas-tools/panduan/cara-membagi-kelompok-belajar.html)
-- [Ide memilih siswa secara acak](https://kang851216.github.io/kelas-tools/panduan/ide-memilih-siswa-acak.html)
-- [Timer ujian 30 menit](https://kang851216.github.io/kelas-tools/timer-ujian-30-menit.html)
-- [Pembagi kelompok 4 orang](https://kang851216.github.io/kelas-tools/pembagi-kelompok-4-orang.html)
-- [Roda nama offline](https://kang851216.github.io/kelas-tools/roda-nama-offline.html)
-- [Ide ice breaking kelas](https://kang851216.github.io/kelas-tools/ide-ice-breaking-kelas.html)
+- [How to pick a student at random](https://kang851216.github.io/lessonkit/how-to-pick-a-student-at-random.html)
+- [How to group students](https://kang851216.github.io/lessonkit/guides/how-to-group-students.html)
+- [Random student picker ideas](https://kang851216.github.io/lessonkit/guides/random-student-picker-ideas.html)
+- [A 30-minute exam timer](https://kang851216.github.io/lessonkit/30-minute-exam-timer.html)
+- [Groups of four](https://kang851216.github.io/lessonkit/groups-of-four.html)
+- [Offline name picker](https://kang851216.github.io/lessonkit/offline-name-picker.html)
+- [10 icebreaker ideas](https://kang851216.github.io/lessonkit/icebreaker-ideas-for-class.html)
 
-## Catatan teknis
+## How it is built
 
-- Situs statis murni (HTML, CSS, JS) di GitHub Pages; tidak ada server maupun basis data.
-- Nama siswa hanya disimpan di `localStorage` perangkat guru, tidak pernah dikirim ke mana pun.
-- Service worker menyimpan aset sehingga alat tetap jalan tanpa koneksi.
-- three.js dimuat hanya ketika roda benar-benar dipakai, jadi halaman pertama tetap ringan.
-- Penghitung kunjungan bersifat anonim: tanpa cookie, tanpa pengenal, hanya angka.
+Plain HTML, CSS and JavaScript, no build step and no external dependency except a
+locally bundled `three.js` for the 3D wheel. Deployed with GitHub Pages; the
+service worker (`sw.js`) caches the pages so the tools keep running when the
+school network drops. Student lists live in `localStorage` and are never sent
+anywhere.
 
-## Lisensi
+## Local preview
 
-MIT.
+```
+python -m http.server 8099
+# http://127.0.0.1:8099/
+```
+
+`sw.js` caches aggressively, so bump `CACHE` in `sw.js` after changing a page
+you are testing through the service worker.
+
+## Checks
+
+```
+python tools/i18n_lint.py index.html            # copy, SEO limits, links
+node tools/pages_check.js                        # every page loads without JS errors
+node tools/en_check.js <url>                     # language + a real spin on the wheel
+```

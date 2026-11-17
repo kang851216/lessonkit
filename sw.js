@@ -1,5 +1,5 @@
 /* sw.js — offline cache for LessonKit */
-const CACHE = 'lessonkit-v1';
+const CACHE = 'lessonkit-v2';
 const ASSETS = [
   './',
   './index.html',

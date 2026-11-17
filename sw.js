@@ -1,5 +1,5 @@
 /* sw.js — offline cache for KelasTools */
-const CACHE = 'kelas-v34';
+const CACHE = 'kelas-v35';
 const ASSETS = [
   './',
   './index.html',
@@ -9,6 +9,7 @@ const ASSETS = [
   './404.html',
   './css/style.css',
   './js/app.js',
+  './js/i18n.js',
   './js/stats.js',
   './js/roulette.js',
   './js/kelompok.js',

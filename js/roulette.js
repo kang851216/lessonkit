@@ -16,6 +16,11 @@
   const stage = document.getElementById('wheel3d');
   let wheel3d = null;
 
+  // Copy that JavaScript paints (canvas labels, toasts, share text) follows the
+  // page language; pages without js/i18n.js keep the Indonesian defaults below.
+  const STR = (window.I18N && window.I18N.t) || null;
+  const L = (key, fallback) => (STR && STR[key]) || fallback;
+
   // extruded rim: stacked discs at negative Z give the wheel real thickness
   (function buildRim() {
     const LAYERS = 26, GAP = 3;
@@ -66,7 +71,7 @@
   }
 
   function syncCount() {
-    countEl.textContent = '(' + names.length + ' nama)';
+    countEl.textContent = '(' + (STR && STR.countText ? STR.countText(names.length) : names.length + ' nama') + ')';
     spinBtn.disabled = names.length < 2;
     shareBtn.disabled = !lastWinner;
     if (waBtn) waBtn.disabled = !lastWinner;
@@ -96,9 +101,9 @@
       ctx.font = '600 34px system-ui, sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText('Masukkan nama', cx, cy - 20);
+      ctx.fillText(L('wheelEmpty1', 'Masukkan nama'), cx, cy - 74);
       ctx.font = '400 26px system-ui, sans-serif';
-      ctx.fillText('di kotak di atas', cx, cy + 24);
+      ctx.fillText(L('wheelEmpty2', 'di kotak di atas'), cx, cy + 78);
       drawHub(cx, cy);
       return;
     }
@@ -325,7 +330,7 @@
     g.font = '600 40px system-ui, sans-serif';
     g.textAlign = 'center';
     g.textBaseline = 'middle';
-    g.fillText('PEMENANG PUTARAN', S / 2, 260);
+    g.fillText(L('cardKicker', 'PEMENANG PUTARAN'), S / 2, 260);
 
     // winner name, auto-fit
     let fs = 132;
@@ -359,7 +364,7 @@
     g.textBaseline = 'middle';
     g.fillStyle = '#64748b';
     g.font = '600 27px system-ui, sans-serif';
-    g.fillText('Coba gratis · tanpa daftar', tx, by + 58);
+    g.fillText(L('cardTagline', 'Coba gratis · tanpa daftar'), tx, by + 58);
     const addr = 'kang851216.github.io/kelas-tools';
     let us = 36;
     do { g.font = '800 ' + us + 'px system-ui, sans-serif'; us -= 1; }
@@ -388,23 +393,26 @@
     waBtn.addEventListener('click', () => {
       if (!lastWinner) return;
       const url = 'https://kang851216.github.io/kelas-tools/roulette.html?ref=wa';
-      const text = 'Pemenang undian: ' + lastWinner +
-        '\nRoda putar nama gratis untuk kelas (bisa offline): ' + url;
+      const text = STR && STR.shareText ? STR.shareText(lastWinner, url)
+        : 'Pemenang undian: ' + lastWinner +
+          '\nRoda putar nama gratis untuk kelas (bisa offline): ' + url;
       window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank', 'noopener');
     });
   }
 
   shareBtn.addEventListener('click', () => {
     if (!lastWinner) return;
-    App.shareOrDownload(makeCard(), 'pemenang-' + lastWinner.replace(/\s+/g, '-').toLowerCase() + '.png',
-      'Pemenang: ' + lastWinner);
+    const fileName = STR && STR.shareFile ? STR.shareFile(lastWinner)
+      : 'pemenang-' + lastWinner.replace(/\s+/g, '-').toLowerCase() + '.png';
+    const title = STR && STR.shareTitle ? STR.shareTitle(lastWinner) : 'Pemenang: ' + lastWinner;
+    App.shareOrDownload(makeCard(), fileName, title);
   });
 
   removeBtn.addEventListener('click', () => {
     removeMode = !removeMode;
     removeBtn.classList.toggle('primary', removeMode);
-    removeBtn.textContent = removeMode ? 'Keluarkan: AKTIF' : 'Keluarkan pemenang';
-    App.toast(removeMode ? 'Pemenang otomatis dikeluarkan' : 'Mode keluar dimatikan');
+    removeBtn.textContent = removeMode ? L('removeOn', 'Keluarkan: AKTIF') : L('removeOff', 'Keluarkan pemenang');
+    App.toast(removeMode ? L('removeToastOn', 'Pemenang otomatis dikeluarkan') : L('removeToastOff', 'Mode keluar dimatikan'));
   });
 
   shuffleBtn.addEventListener('click', () => {
@@ -412,11 +420,11 @@
     namesEl.value = names.join('\n');
     App.saveNames(names);
     refreshNames();
-    App.toast('Urutan diacak');
+    App.toast(L('shuffled', 'Urutan diacak'));
   });
 
   clearBtn.addEventListener('click', () => {
-    if (!confirm('Hapus semua nama?')) return;
+    if (!confirm(L('clearConfirm', 'Hapus semua nama?'))) return;
     names = [];
     namesEl.value = '';
     App.saveNames(names);

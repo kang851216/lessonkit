@@ -6,6 +6,11 @@
     groups: 'kelas.groups.opts'
   };
 
+  // Shared UI copy follows the page language (js/i18n.js); Indonesian is the
+  // default so pages that never load that file behave exactly as before.
+  const T = (window.I18N && window.I18N.t) || null;
+  const tx = (key, fallback) => (T && T[key]) || fallback;
+
   const App = {
     KEY,
 
@@ -81,7 +86,7 @@
     },
 
     copy(text, okMsg) {
-      const done = () => App.toast(okMsg || 'Disalin ke clipboard');
+      const done = () => App.toast(okMsg || tx('copied', 'Disalin ke clipboard'));
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(done).catch(() => App.fallbackCopy(text, done));
       } else {
@@ -95,7 +100,7 @@
       ta.style.opacity = '0';
       document.body.appendChild(ta);
       ta.select();
-      try { document.execCommand('copy'); done(); } catch (e) { App.toast('Gagal menyalin'); }
+      try { document.execCommand('copy'); done(); } catch (e) { App.toast(tx('copyFail', 'Gagal menyalin')); }
       document.body.removeChild(ta);
     },
 
@@ -115,7 +120,7 @@
       if (blob && blob.toBlob) {
         blob = await new Promise((res) => blob.toBlob(res, 'image/png'));
       }
-      if (!blob) { App.toast('Gagal membuat gambar'); return; }
+      if (!blob) { App.toast(tx('imgFail', 'Gagal membuat gambar')); return; }
       const file = new File([blob], filename, { type: 'image/png' });
       if (navigator.canShare && navigator.canShare({ files: [file] })) {
         try {
@@ -124,7 +129,7 @@
         } catch (e) { /* user cancelled -> fall through */ }
       }
       App.download(blob, filename);
-      App.toast('Gambar diunduh');
+      App.toast(tx('imgSaved', 'Gambar diunduh'));
     },
 
     /* ---------- pwa ---------- */

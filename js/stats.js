@@ -1,4 +1,4 @@
-/* KelasTools — anonymous page-view counter.
+/* LessonKit — anonymous page-view counter.
    No cookies, no identifiers, no personal data. A single fire-and-forget
    increment to a public counter API (abacus.jasoncameron.dev), one counter
    per day plus an all-time total. The desktop dashboard reads those counters.
@@ -51,7 +51,7 @@
     }
     bump('hr-' + host);
 
-    var page = location.pathname.replace(/^\/kelas-tools/, '').replace(/^\/+/, '');
+    var page = location.pathname.replace(/^\/(?:kelas-tools|lessonkit)(?=\/|$)/, '').replace(/^\/+/, '');
     if (!page || page === 'index.html') page = 'home';
     else page = page.replace(/\.html$/, '').replace(/[^a-z0-9/-]+/gi, '-').slice(0, 40) || 'home';
     bump('hp-' + page);
